@@ -71,7 +71,7 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T10:36:15.837683+00:00</span><span>报告生成 2026-10-25 10:37 UTC</span><span>覆盖网格 489/518 格（有缺档或重复）</span><span>块 74,148,629 – 74,155,458</span><span>注册表块 74102514</span><span>数据文件 matrix_results_binaryfi.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T10:36:15.837683+00:00</span><span>报告生成 2026-10-25 10:39 UTC</span><span>覆盖网格 489/518 格（有缺档或重复）</span><span>未完成标的 INTCx、IWMx、LLYx、PLTRx、TSMx、XIAOx</span><span>失败记录 INTCx、IWMx、LLYx、PLTRx、TSMx、XIAOx</span><span>块 74,148,629 – 74,155,458</span><span>注册表块 74102514</span><span>数据文件 matrix_results_binaryfi.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 
@@ -264,6 +264,7 @@ details summary { cursor:pointer; color:var(--blue); }
 <li><strong>通用 diamond split：</strong>统一支持公共前缀、两个不等长分支、公共后缀及独立双路；公共段只模拟一次，分支共享池会被拒绝。AVGOx 的 <code>USDC → wAVGOx</code> / <code>USDC → wQQQx → wAVGOx</code> 组合因此从 <code>-3.103 bps</code> 修复到 <code>+0.310 bps</code>，新块为 <code>+0.015 bps</code>。</li>
 <li><strong>部分容量分支：</strong>完整金额吃不下、但在 1/2、1/4 或 1/10 输入时可成交的路线仍会进入 split 候选；份额用 64 点网格加 0.1%/0.5% 探针，再做 error-aware 三分细化，避免一个分支触边 revert 就让整个搜索中止。</li>
 <li><strong>OKX 同块对照：</strong>官方对照统一走 <code>xstockcli</code>；quote worker 会并发发送同一批金额，矩阵默认 <code>--batch-size 3</code>，在 <code>contextSlot</code> 采样窗口与请求突发量之间折中。漂移档位单独重试；CloudFront HTTP 403 时保留可用部分结果并停止该方向后续批次，避免放大突发。OKX API 对 <code>Rate limited / 429 / Too Many Requests</code> 使用指数退避；403 是不同状态，不能据此断言为 429 限流。每个目标完成后写 checkpoint；中断后加 <code>--resume</code> 只重跑缺档或失败目标。</li>
+<li><strong>403 请求诊断：</strong>2026-10-25 的矩阵日志显示 CloudFront 返回 <code>403 Request blocked</code>，不是 429。旧版判断器只匹配 <code>HTTP error 403</code>，漏掉实际格式 <code>CloudFront HTTP 403</code>，导致批次落入逐金额 fallback；判断器已修正为识别 CloudFront/Request blocked 的 403，定向续跑确认遇到拦截后立即停止该方向。此前实盘未遇到 403 与此不矛盾：矩阵使用同块多档、正反向连续请求，旧 fallback 又放大了突发。</li>
 <li><strong>Caliber propAMM：</strong>Rust 探针新增 Caliber pair 发现和精确状态初始化；pair 的 token 地址读取与本地快照都钉在 OKX <code>contextSlot</code>，并把同批 token 槽位合并为 bulk-SLOAD。8 标的回归中 COINx/CRCLx 的 OKX 路径已出现 Caliber 腿，图扩展后再与 V3/V4 split 比较。</li>
 <li><strong>BinaryFi propAMM：</strong>本地探针从同块链上资产集合生成 pair 边，候选路径独立于 OKX 选择；OKX 路径只统计覆盖率。快照按 BinaryFiEVM adapter <code>0x4d0e78ba4c116f576fbe2908c75696d9041e5f04</code> 读取 per-account fee。离线验证为 38 个 BinaryFi 数学/同步单测通过，另有 4 个探针专项测试通过，其中独立于 OKX 路径观察的 BinaryFi 边可在 native 买入和卖出方向都到达目标。需要 RPC 的 XLayer fork 用例和新代码全矩阵仍待运行。旧矩阵有 2 条同块 OKX 报价使用 BinaryFi：SNDKx 买入 5,000 的 OURS 偏差为 <code>-183.438 bps</code>（OKX 该段占 64.88%），SKHYx 卖出 5,000 为 <code>-89.319 bps</code>（占 22.95%）；旧 bps 不代表修复结果。</li>
 <li><strong>路由深度：</strong>native 路径由 AMM hop + ERC-4626 wrapper hop 组成，默认搜索深度改为 4；上一轮 3 跳会直接丢掉 <code>USDT0 → USDG → wSPYx → wLLYx → LLYx</code> 这类合法路径。</li>
