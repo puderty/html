@@ -75,7 +75,7 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T11:37:28+00:00</span><span>报告生成 2026-10-25 11:42 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,148,629 – 74,158,958</span><span>注册表块 74102514</span><span>数据文件 matrix_results_binaryfi.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T11:37:28+00:00</span><span>报告生成 2026-10-25 11:45 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,148,629 – 74,158,958</span><span>注册表块 74102514</span><span>数据文件 matrix_results_binaryfi.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 <section class="card executive-summary">
@@ -92,7 +92,7 @@ details summary { cursor:pointer; color:var(--blue); }
 <li><strong>最大绝对差异：</strong>SNDKx 买入 5000 USDT0：+203.215 bps；查看该行路径以区分本地漏路由与 OKX 路由选择差异。</li>
 <li><strong>OKX 报价入口：</strong>本轮同块样本包含 内部 quote-worker-batch 479 条、swap quote 单笔入口 1 条；结果按入口标记，历史 batch 行与单笔 <code>swap quote</code> 结果分开复核。</li>
 <li><strong>Caliber 同块核验：</strong>PLTRx 卖出 5000 USDT0，块 74158958：合约 quote 与本地 Caliber 单路均为 4991.135098 USDT0，逐位一致；本地最优 split 为 4991.165338，OKX 同块为 4991.135098 （本地高 +0.061 bps）。单笔 OKX 路径也走 Caliber；合约 quote、OKX 单笔报价、本地 Caliber 单路逐位一致。 同块 batch 对照（块 74158853）中，内部 worker 对 wPLTRx 返回 4888.962813，而 Caliber 合约返回 4991.137360 （相差 +208.990 bps）；这说明内部 benchmark worker 的选路与单笔 swap quote 入口不同。 历史矩阵块 74157781 的 batch 行曾显示 +205.964 bps；此值保留作历史记录，不与本次单笔入口结果混算。</li>
-<li><strong>SNDKx / BinaryFi 单点链上核对：</strong>块 74159299 的 5,000 USDT0 样本中，本地 split 输出 3.982771463139756499，比 OKX 单笔高 +201.059 bps。按展示的 76.5994% 分支比例，对约 3829.97 USDT0 调用 BinaryFi 引擎 quote，返回 3.046113712887676 wSNDKx。这证明该账户与输入下链上 quote 有非零输出；目前仍需精确本地分支对照和 swap 模拟，因此该大幅优势暂列为待解释的路由选择/可执行性差异，不算已验证的优化收益。</li>
+<li><strong>SNDKx / BinaryFi 单点链上核对：</strong>块 74159299 的 5,000 USDT0 样本中，本地 split 输出 3.982771463139756499，比 OKX 单笔高 +201.059 bps。按展示的 76.5994% 分支比例，对约 3829.97 USDT0 调用 BinaryFi 引擎 quote，返回 3.046113712887676 wSNDKx。这证明该账户与输入下链上 quote 有非零输出；目前仍需精确本地分支对照和 swap 模拟，因此该大幅优势暂列为待解释的路由选择/可执行性差异，不算已验证的优化收益。引擎级 swap eth_call 曾无原因 revert；debug_traceCall 被 RPC 返回 403。该模拟未经过完整适配器结算，不能据此判定路径不可执行。</li>
 <li><strong>未完成标的：</strong>无。失败记录：无。</li>
 <li><strong>流动性边界：</strong>各方向最低不足档为 GEVx 卖出 20、LLYx 买入 5000、RDDTx 卖出 100、SHEINx 卖出 1000、SMCIx 卖出 50；后续新探测会跳过更大金额。当前数据保留了 cutoff 策略加入前的历史报价；明确跳过项为 LLYx 卖出 5000。</li>
 </ul>
