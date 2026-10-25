@@ -75,13 +75,14 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 13:12 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 13:15 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 <section class="card executive-summary">
 <h2>结论摘要</h2>
 <p class="section-note">整体矩阵统计来自 2026-10-25T06:27:07.682169+00:00 的全量快照；本地新 BinaryFi 修复尚未用全量矩阵验证，因此这些统计不能代表新代码的全量表现。后续定向核验（2026-10-25T13:03:33+00:00）只覆盖页面下方列出的标的和金额，未混入全量统计。只把同块 OKX 报价纳入 bps 统计；正值表示本地输出优于 OKX，负值表示本地输出低于 OKX。明确标记为流动性跳过的格子会计入覆盖，不会当作完整可成交报价。</p>
 <div class="callout focus"><strong>当前迭代状态：</strong>修复与定向核验已完成；全量矩阵仍是旧探针快照。当前不能据此宣称新代码整体优于或已对齐 OKX。报告中的偏差中位数和最大差异均描述该历史矩阵，定向复核结果单独列出。</div>
+<div class="callout"><strong>最新定向核验：</strong>7 个重点标的、84 条同块可比报价，偏差中位数 +0.020 bps；最大绝对差异为 SKHYx 卖出 5000 USDT0：+48.825 bps。 BinaryFi 分支与链上卖出容量报价相差 -0.285 bps；当前证据指向路由分配差异，尚未证明为数学误差或可执行套利。</div>
 <div class="exec-grid">
 <div class="exec-stat"><b>37/37</b><span>网格已覆盖（含明确跳过）</span></div>
 <div class="exec-stat"><b>518/518</b><span>已覆盖方向/金额格</span></div>
@@ -89,9 +90,9 @@ details summary { cursor:pointer; color:var(--blue); }
 <div class="exec-stat"><b>+0.001 bps</b><span>同块偏差中位数</span></div>
 </div>
 <ul class="insights">
-<li><strong>本地低于 OKX 的最大差异：</strong>SNDKx 买入 5000 USDT0：-183.438 bps。</li>
-<li><strong>最大绝对差异：</strong>SNDKx 卖出 5000 USDT0：+325.838 bps；查看该行路径以区分本地漏路由与 OKX 路由选择差异。</li>
-<li><strong>OKX 报价入口：</strong>本轮同块样本包含 内部 quote-worker-batch 482 条；结果按入口标记，历史 batch 行与单笔 <code>swap quote</code> 结果分开复核。</li>
+<li><strong>历史全量矩阵中本地低于 OKX 的最大差异：</strong>SNDKx 买入 5000 USDT0：-183.438 bps。</li>
+<li><strong>历史全量矩阵最大绝对差异：</strong>SNDKx 卖出 5000 USDT0：+325.838 bps；查看该行路径以区分本地漏路由与 OKX 路由选择差异。</li>
+<li><strong>历史矩阵 OKX 报价入口：</strong>同块样本包含 内部 quote-worker-batch 482 条；结果按入口标记，历史 batch 行与单笔 <code>swap quote</code> 结果分开复核。</li>
 <li><strong>Caliber 同块核验：</strong>PLTRx 卖出 5000 USDT0，块 74158958：合约 quote 与本地 Caliber 单路均为 4991.135098 USDT0，逐位一致；本地最优 split 为 4991.165338，OKX 同块为 4991.135098 （本地高 +0.061 bps）。单笔 OKX 路径也走 Caliber；合约 quote、OKX 单笔报价、本地 Caliber 单路逐位一致。 同块 batch 对照（块 74158853）中，内部 worker 对 wPLTRx 返回 4888.962813，而 Caliber 合约返回 4991.137360 （相差 +208.990 bps）；这说明内部 benchmark worker 的选路与单笔 swap quote 入口不同。 历史矩阵块 74157781 的 batch 行曾显示 +205.964 bps；此值保留作历史记录，不与本次单笔入口结果混算。</li>
 <li><strong>SNDKx / BinaryFi 单点链上核对：</strong>历史块 74159299 的 5,000 USDT0 样本曾出现本地高 +201.059 bps；在较新块 74159859 的单格复核中，本地为 3.977738569821770488，OKX 单笔为 3.977671719889263087，差异收敛至 +0.168 bps。精确 split 把 3809.415 USDT0 分给 BinaryFi；同块引擎 quote 返回 3.024812717746161 wSNDKx。因此 +201 bps 是早期区块的历史现象，未在最新单格复核中复现；最新样本与 OKX 高度接近。引擎级 swap eth_call 曾无原因 revert；debug_traceCall 被 RPC 返回 403。该模拟未经过完整适配器结算，仍不能据此判定路径可执行或不可执行。</li>
 <li><strong>MRVLx 买入 5,000 单笔复核：</strong>块 74160118，本地输出 21.842150448361693127，OKX 单笔 21.842149518206542527，差异 +0.000426 bps。历史 batch 行块 74152251 为 +110.460 bps；该差异在当前单笔 OKX 入口复核中没有复现。</li>
