@@ -75,12 +75,13 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 13:03 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 13:12 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 <section class="card executive-summary">
 <h2>结论摘要</h2>
-<p class="section-note">这是当前可复核快照；只把同块 OKX 报价纳入 bps 统计。正值表示本地输出优于 OKX，负值表示本地输出低于 OKX。明确标记为流动性跳过的格子会计入覆盖，不会当作完整可成交报价。</p>
+<p class="section-note">整体矩阵统计来自 2026-10-25T06:27:07.682169+00:00 的全量快照；本地新 BinaryFi 修复尚未用全量矩阵验证，因此这些统计不能代表新代码的全量表现。后续定向核验（2026-10-25T13:03:33+00:00）只覆盖页面下方列出的标的和金额，未混入全量统计。只把同块 OKX 报价纳入 bps 统计；正值表示本地输出优于 OKX，负值表示本地输出低于 OKX。明确标记为流动性跳过的格子会计入覆盖，不会当作完整可成交报价。</p>
+<div class="callout focus"><strong>当前迭代状态：</strong>修复与定向核验已完成；全量矩阵仍是旧探针快照。当前不能据此宣称新代码整体优于或已对齐 OKX。报告中的偏差中位数和最大差异均描述该历史矩阵，定向复核结果单独列出。</div>
 <div class="exec-grid">
 <div class="exec-stat"><b>37/37</b><span>网格已覆盖（含明确跳过）</span></div>
 <div class="exec-stat"><b>518/518</b><span>已覆盖方向/金额格</span></div>
