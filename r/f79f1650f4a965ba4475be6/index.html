@@ -75,7 +75,7 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 16:11 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T06:27:07.682169+00:00</span><span>报告生成 2026-10-25 16:13 UTC</span><span>覆盖网格 518/518 格完整</span><span>未完成标的 无</span><span>失败记录 无</span><span>块 74,126,649 – 74,140,575</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 <section class="card executive-summary">
@@ -110,13 +110,13 @@ details summary { cursor:pointer; color:var(--blue); }
 <div class="callout"><strong>本轮刷新：</strong>37 个标的已用 <code>xstockcli</code> + Caliber propAMM 在同一固定块重跑；探针返回 515 行，模式为 same-block direction batches of 3 with per-amount fallback。未返回的档位显示为 <code>no_reference</code>，不沿用旧价格。刷新时间 2026-10-25T06:27:07.682169+00:00。标的：AAPLx, AMDx, AMZNx, ASMLx, AVGOx, BMNRx, COINx, CRCLx, DELLx, GEVx, GMEx, GOOGLx, HOODx, IBMx, INTCx, IWMx, LLYx, METAx, MRVLx, MSFTx, MSTRx, NVDAx, ORCLx, PLTRx, POPMARTx, QQQx, RDDTx, SHEINx, SKHYx, SMCIx, SNDKx, SPCXx, SPYx, TCENTx, TSLAx, TSMx, XIAOx。</div>
 <section class="card">
 <h2>最新定向回归 · GEVx / NVDAx / SPYx / COINx / CRCLx / MRVLx / SKHYx / SNDKx</h2>
-<p class="section-note">这是叠加在宽矩阵之上的最新同块定向回归，更新于 <code>2026-10-25T13:38:45.195137+00:00</code>。COINx 用通用 N-way split；CRCLx 已修复 Caliber 快照块时间误用墙钟的问题，直连路径恢复报价。xETH 是 ETH 路由资产，不是股票型 RWA；WOKB/XDOG/xBTC 也只作为路由中间资产，全部不计入 RWA 交易目标。正 bps=我们更优，负 bps=OKX 更优。SKHYx reverse 5,000 is overlaid with the later pinned-block capacity check (2026-10-25T15:28:34Z); the old over-capacity split is superseded.</p>
+<p class="section-note">这是叠加在宽矩阵之上的最新同块定向回归，更新于 <code>2026-10-25T13:38:45.195137+00:00</code>。COINx 用通用 N-way split；CRCLx 已修复 Caliber 快照块时间误用墙钟的问题，直连路径恢复报价。xETH 是 ETH 路由资产，不是股票型 RWA；WOKB/XDOG/xBTC 也只作为路由中间资产，全部不计入 RWA 交易目标。正 bps=我们更优，负 bps=OKX 更优。SKHYx reverse 5,000 is overlaid with the later pinned-block capacity check (2026-10-25T15:28:34Z); the old over-capacity split is superseded. The rebalanced candidate is shown for diagnosis but excluded from aggregate quote statistics until full-route settlement is verified.</p>
 <div class="metrics" style="margin-bottom:16px">
 <div class="metric"><b>100</b><span>定向回归行</span></div>
-<div class="metric"><b>86</b><span>OKX 同块可比</span></div>
+<div class="metric"><b>85</b><span>OKX 同块可比</span></div>
 <div class="metric"><b>-0.964</b><span>最差 vs OKX</span></div>
-<div class="metric"><b>+103.502</b><span>最佳 vs OKX</span></div>
-<div class="metric"><b>69</b><span>split 行 · 最大 +192.653 bps</span></div>
+<div class="metric"><b>+9.924</b><span>最佳 vs OKX</span></div>
+<div class="metric"><b>68</b><span>split 行 · 最大 +192.653 bps</span></div>
 </div>
 <ul class="insights"><li>NVDAx/SPYx 正向和反向分别以各自批次锚定本地区块；所有可比档位 drift=0，正 bps 表示我们比 OKX 更优。</li><li>CRCLx 直连 Caliber 回归已修复：Caliber 报价时效性改用快照块时间；同块正向 50/100/200/500/5000 为 0.0 bps，反向各档领先 0.12~0.45 bps。</li><li>COINx forward/reverse 500/1000/5000 使用通用 N-way split；本地 split gain 与 OKX 比较分开记录。</li><li>SKHYx 卖出 5,000 同块定向复核（区块 74148348）：修复 BUY-only ask 读取与 SELL 净容量后，本地输出 4,885.709134，OKX 4,861.970460（+48.825 bps）；BinaryFi 分支按链上卖出容量封顶，分支报价与链上差约 -0.285 bps。修复前 +135.525 bps 属于本地容量/价格模型高估。</li><li>CRCLx 200/500/1,000/5,000 targeted single-quote same-block checks: max absolute gap is 3.497 bps (5,000 sell); 1,000 sell matches exactly. Older matrix gaps up to +54.754 bps did not reproduce.</li></ul>
 <div class="table-wrap"><table>
