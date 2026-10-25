@@ -71,13 +71,13 @@ details summary { cursor:pointer; color:var(--blue); }
 <header class="hero">
 <h1>XLayer RWA 多跳路由矩阵</h1>
 <p>37 个 native 股票型 RWA，7 个 USDT0 名义金额档位，买入与卖出一轮。每一行都在同一目标、同一金额、同一固定块上比较 OURS、QuoterV2（V3-only 直比或 native 内层控制）和 OKX 官方报价；外部 hub、V4 与 split 的增量另行标注。</p>
-<div class="hero-meta"><span>矩阵生成 2026-10-25T03:58:42.139779+00:00</span><span>报告生成 2026-10-25 05:57 UTC</span><span>块 74,126,063 – 74,137,582</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
+<div class="hero-meta"><span>矩阵生成 2026-10-25T03:58:42.139779+00:00</span><span>报告生成 2026-10-25 05:58 UTC</span><span>块 74,126,063 – 74,137,582</span><span>注册表块 74102514</span><span>数据文件 matrix_results.json</span><span>报价快照，不含 gas</span></div>
 </header>
 
 <div class="callout"><strong>本轮刷新：</strong>5 个标的已用 <code>xstockcli</code> + Caliber propAMM 在同一固定块重跑，共 same-block direction batches of 3 with per-amount fallback；刷新时间 2026-10-25T03:58:42.139779+00:00。新增/替换标的：COINx, CRCLx, GEVx, NVDAx, SPYx。其余标的保留上一轮快照，报告中不会把两者混称为一次全量重跑。</div>
 <section class="card">
 <h2>最新定向回归 · GEVx / NVDAx / SPYx / COINx / CRCLx</h2>
-<p class="section-note">这是叠加在宽矩阵之上的最新同块定向回归，更新于 <code>2026-10-25T05:39:57Z</code>。COINx 用通用 N-way split；CRCLx 已修复 Caliber 快照块时间误用墙钟的问题，直连路径恢复报价。xETH/WOKB/XDOG/xBTC 只作为路由中间资产，不计入 RWA 交易目标。正 bps=我们更优，负 bps=OKX 更优。</p>
+<p class="section-note">这是叠加在宽矩阵之上的最新同块定向回归，更新于 <code>2026-10-25T05:39:57Z</code>。COINx 用通用 N-way split；CRCLx 已修复 Caliber 快照块时间误用墙钟的问题，直连路径恢复报价。xETH 是 ETH 路由资产，不是股票型 RWA；WOKB/XDOG/xBTC 也只作为路由中间资产，全部不计入 RWA 交易目标。正 bps=我们更优，负 bps=OKX 更优。</p>
 <div class="metrics" style="margin-bottom:16px">
 <div class="metric"><b>62</b><span>定向回归行</span></div>
 <div class="metric"><b>45</b><span>OKX 同块可比</span></div>
